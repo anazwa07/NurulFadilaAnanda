@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light" data-lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nurul Fadila Ananda — Portofolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+/* ══════════════════════════════════════════
+   CSS VARIABLES — LIGHT & DARK MODE
+   ══════════════════════════════════════════ */
+:root {
+  --pink-deep:   #C2185B;
+  --pink-mid:    #E91E8C;
+  --pink-soft:   #F8BBD9;
+  --pink-blush:  #FCE4EC;
+  --pink-pale:   #FFF0F6;
+  --white:       #FFFFFF;
+  --dark:        #1A0A12;
+  --gray:        #6B4E5E;
+  --gray-light:  #EDD8E4;
+  --card-bg:     #FFFFFF;
+  --nav-bg:      rgba(255,240,246,.9);
+  --section-alt: #FFF0F6;
+
+  --ff-display: 'Playfair Display', Georgia, serif;
+  --ff-body:    'DM Sans', system-ui, sans-serif;
+  --radius: 20px;
+  --transition: .35s cubic-bezier(.4,0,.2,1);
+}
+
+[data-theme="dark"] {
+  --pink-blush:  #2A1020;
+  --pink-pale:   #1A0A12;
+  --white:       #221018;
+  --dark:        #FFE4F0;
+  --gray:        #D4A8C0;
+  --gray-light:  #3A1A2C;
+  --pink-soft:   #6B2A4A;
+  --card-bg:     #2A1020;
+  --nav-bg:      rgba(26,10,18,.92);
+  --section-alt: #1A0A12;
+}
+
+/* ══════════════════════════════════════════
+   RESET & BASE
+   ══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--ff-body);
+  background: var(--pink-pale);
+  color: var(--dark);
+  line-height: 1.65;
+  transition: background .4s ease, color .4s ease;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--pink-blush); }
+::-webkit-scrollbar-thumb { background: var(--pink-mid); border-radius: 99px; }
+
+/* ══════════════════════════════════════════
+   SCROLL PROGRESS BAR
+   ══════════════════════════════════════════ */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--pink-deep), var(--pink-mid), #FF6EB4);
+  z-index: 9999;
+  width: 0%;
+  transition: width .1s linear;
+  box-shadow: 0 0 8px rgba(233,30,140,.6);
+}
+
+/* ══════════════════════════════════════════
+   FLOATING STICKERS
+   ══════════════════════════════════════════ */
+.sticker {
+  position: fixed;
+  font-size: 1.6rem;
+  pointer-events: none;
+  z-index: 1;
+  animation: floatSticker 8s ease-in-out infinite;
+  opacity: .55;
+  user-select: none;
+}
+.sticker:nth-child(1)  { top: 12%; left: 3%;  animation-delay: 0s;    font-size: 1.8rem; }
+.sticker:nth-child(2)  { top: 28%; right: 2%; animation-delay: 1.2s;  font-size: 1.3rem; }
+.sticker:nth-child(3)  { top: 55%; left: 1%;  animation-delay: 2.4s;  font-size: 1.5rem; }
+.sticker:nth-child(4)  { top: 72%; right: 3%; animation-delay: 0.8s;  font-size: 1.2rem; }
+.sticker:nth-child(5)  { top: 88%; left: 4%;  animation-delay: 3.1s;  font-size: 1.7rem; }
+.sticker:nth-child(6)  { top: 40%; right: 1%; animation-delay: 1.8s;  font-size: 1.4rem; }
+
+@keyframes floatSticker {
+  0%,100% { transform: translateY(0px) rotate(0deg); }
+  33%  { transform: translateY(-18px) rotate(6deg); }
+  66%  { transform: translateY(8px) rotate(-4deg); }
+}
+
+/* ══════════════════════════════════════════
+   CURSOR SPARKLES
+   ══════════════════════════════════════════ */
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  font-size: 1rem;
+  animation: sparkleAnim .7s ease forwards;
+}
+@keyframes sparkleAnim {
+  0%   { opacity: 1; transform: translate(0,0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
+}
+
+/* ══════════════════════════════════════════
+   FLOATING TOOLBAR (Dark Mode + Language)
+   ══════════════════════════════════════════ */
+.fab-toolbar {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  z-index: 1000;
+}
+
+.fab-btn {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--pink-deep), var(--pink-mid));
+  color: white;
+  box-shadow: 0 4px 18px rgba(194,24,91,.45);
+  transition: transform .2s ease, box-shadow .2s ease;
+  position: relative;
+}
+.fab-btn:hover { transform: scale(1.12); box-shadow: 0 6px 22px rgba(194,24,91,.6); }
+
+.fab-tooltip {
+  position: absolute;
+  right: 56px;
+  background: var(--card-bg);
+  color: var(--dark);
+  font-size: .73rem;
+  font-weight: 600;
+  padding: .3rem .7rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  border: 1px solid var(--pink-soft);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+.fab-btn:hover .fab-tooltip { opacity: 1; }
+
+/* ══════════════════════════════════════════
+   NAVBAR
+   ══════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .75rem 2.5rem;
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--pink-soft);
+  transition: background .4s ease;
+}
+
+.nav-brand {
+  display: flex; align-items: center; gap: .8rem;
+  text-decoration: none;
+}
+
+.nav-photo {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--pink-mid);
+  box-shadow: 0 0 0 3px var(--pink-soft);
+  background: linear-gradient(135deg, var(--pink-deep), var(--pink-mid));
+}
+
+.nav-photo-placeholder {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink-deep), var(--pink-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-display);
+  font-size: .85rem; font-weight: 700;
+  color: white;
+  border: 2px solid var(--pink-mid);
+  box-shadow: 0 0 0 3px var(--pink-soft);
+  flex-shrink: 0;
+}
+
+.nav-logo {
+  font-family: var(--ff-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--pink-deep);
+  letter-spacing: .03em;
+}
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  text-decoration: none;
+  font-size: .88rem;
+  font-weight: 500;
+  color: var(--gray);
+  letter-spacing: .03em;
+  transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--pink-deep); }
+
+/* ══════════════════════════════════════════
+   HERO SECTION
+   ══════════════════════════════════════════ */
+#home {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; text-align: center;
+  padding: 8rem 2rem 5rem;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--pink-blush) 0%, var(--pink-pale) 100%);
+  position: relative; overflow: hidden;
+}
+
+#home::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle 300px at 10% 30%, rgba(233,30,140,.08), transparent),
+    radial-gradient(circle 400px at 90% 70%, rgba(194,24,91,.06), transparent);
+  pointer-events: none;
+}
+
+/* Animated blobs */
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: .12;
+  pointer-events: none;
+  animation: blobMove 10s ease-in-out infinite;
+}
+.hero-blob-1 { width: 320px; height: 320px; background: var(--pink-deep); top: -80px; left: -100px; animation-delay: 0s; }
+.hero-blob-2 { width: 260px; height: 260px; background: var(--pink-mid); bottom: -60px; right: -80px; animation-delay: 3s; }
+.hero-blob-3 { width: 180px; height: 180px; background: #FF6EB4; top: 50%; right: 10%; animation-delay: 6s; }
+
+@keyframes blobMove {
+  0%,100% { transform: scale(1) translate(0,0); }
+  50%      { transform: scale(1.15) translate(20px, -20px); }
+}
+
+.hero-photo-wrap {
+  position: relative;
+  width: 160px; height: 160px;
+  margin: 0 auto 2rem;
+  z-index: 1;
+}
+
+.hero-photo {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--white);
+  box-shadow:
+    0 0 0 6px var(--pink-soft),
+    0 0 0 12px var(--pink-blush),
+    0 12px 40px rgba(194,24,91,.25);
+  display: block;
+  animation: photoPulse 4s ease-in-out infinite;
+}
+
+@keyframes photoPulse {
+  0%,100% { box-shadow: 0 0 0 6px var(--pink-soft), 0 0 0 12px var(--pink-blush), 0 12px 40px rgba(194,24,91,.25); }
+  50%      { box-shadow: 0 0 0 8px var(--pink-soft), 0 0 0 16px var(--pink-blush), 0 16px 50px rgba(194,24,91,.4); }
+}
+
+.hero-avatar-placeholder {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink-deep), var(--pink-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-display);
+  font-size: 3rem; font-weight: 700;
+  color: white;
+  box-shadow: 0 0 0 6px var(--pink-soft), 0 0 0 12px var(--pink-blush), 0 12px 40px rgba(194,24,91,.25);
+}
+
+/* Online badge */
+.hero-badge {
+  position: absolute;
+  bottom: 8px; right: 8px;
+  background: #22c55e;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 3px solid var(--white);
+  animation: badgePing 2s ease infinite;
+}
+@keyframes badgePing {
+  0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,.5); }
+  50%      { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+}
+
+.hero-tag {
+  display: inline-block;
+  background: var(--pink-soft);
+  color: var(--pink-deep);
+  font-size: .78rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: .35rem 1rem;
+  border-radius: 99px;
+  margin-bottom: 1.5rem;
+  z-index: 1;
+  animation: tagSlideIn .8s ease forwards;
+}
+@keyframes tagSlideIn {
+  from { opacity:0; transform: translateY(12px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+.hero-name {
+  font-family: var(--ff-display);
+  font-size: clamp(2.4rem, 6.5vw, 4.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--dark);
+  margin-bottom: .8rem;
+  z-index: 1;
+}
+
+.hero-name span {
+  background: linear-gradient(135deg, var(--pink-deep), var(--pink-mid));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 3px;
+  height: .85em;
+  background: var(--pink-mid);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--gray);
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+  z-index: 1;
+}
+
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; z-index: 1; }
+
+/* Mini stat bar */
+.hero-stats {
+  display: flex; gap: 2.5rem; margin-top: 3rem;
+  z-index: 1;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-family: var(--ff-display);
+  font-size: 1.8rem; font-weight: 700;
+  background: linear-gradient(135deg, var(--pink-deep), var(--pink-mid));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-stat-label { font-size: .75rem; color: var(--gray); font-weight: 500; letter-spacing: .05em; }
+
+/* ══════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .75rem 1.8rem;
+  border-radius: 99px;
+  font-size: .9rem; font-weight: 600;
+  text-decoration: none;
+  transition: transform var(--transition), box-shadow var(--transition), background .3s;
+  position: relative; overflow: hidden;
+}
+.btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,.15);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.btn:hover::after { opacity: 1; }
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--pink-deep), var(--pink-mid));
+  color: white;
+  box-shadow: 0 4px 20px rgba(194,24,91,.35);
+}
+.btn-primary:hover { box-shadow: 0 8px 28px rgba(194,24,91,.5); }
+
+.btn-outline {
+  border: 2px solid var(--pink-soft);
+  color: var(--pink-deep);
+  background: transparent;
+}
+.btn-outline:hover { background: var(--pink-blush); }
+
+/* ══════════════════════════════════════════
+   SECTIONS COMMON
+   ══════════════════════════════════════════ */
+section { padding: 6rem 2rem; }
+
+.section-label {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--pink-mid);
+  margin-bottom: 1rem;
+}
+.section-label::before { content: '✦'; }
+
+.section-title {
+  font-family: var(--ff-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700; line-height: 1.2;
+  margin-bottom: 1rem;
+  color: var(--dark);
+}
+
+.container { max-width: 1050px; margin: 0 auto; }
+
+/* ══════════════════════════════════════════
+   ABOUT
+   ══════════════════════════════════════════ */
+#about { background: var(--card-bg); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3.5rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.about-photo {
+  width: 100%; max-width: 200px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 1.2rem;
+  border: 3px solid var(--pink-soft);
+  box-shadow: 0 8px 24px rgba(194,24,91,.15);
+}
+
+.about-photo-placeholder {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink-deep), var(--pink-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--ff-display);
+  font-size: 2rem; font-weight: 700;
+  color: white;
+  margin: 0 auto 1.2rem;
+}
+
+.about-card {
+  background: var(--pink-pale);
+  border: 1px solid var(--pink-soft);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  transition: background .4s, border-color .4s;
+}
+
+.about-card-name { font-family: var(--ff-display); font-size: 1.25rem; font-weight: 700; margin-bottom: .3rem; }
+.about-card-role { font-size: .83rem; color: var(--pink-mid); font-weight: 600; margin-bottom: 1.2rem; }
+
+.about-tags { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-bottom: 1.5rem; }
+.tag {
+  background: var(--pink-blush);
+  color: var(--pink-deep);
+  font-size: .75rem; font-weight: 600;
+  padding: .3rem .8rem;
+  border-radius: 99px;
+}
+
+.about-contact { text-align: left; }
+.about-contact a {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .83rem; color: var(--gray);
+  text-decoration: none;
+  margin-bottom: .5rem;
+  transition: color var(--transition);
+}
+.about-contact a:hover { color: var(--pink-deep); }
+
+.about-text { color: var(--gray); }
+.about-text p { margin-bottom: 1rem; }
+
+/* ══════════════════════════════════════════
+   SKILLS
+   ══════════════════════════════════════════ */
+#skills { background: var(--pink-pale); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1rem; margin-top: 2rem;
+}
+
+.skill-pill {
+  background: var(--card-bg);
+  border: 1px solid var(--pink-soft);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.4rem;
+  display: flex; align-items: center; gap: .8rem;
+  font-weight: 500; font-size: .9rem;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.skill-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(194,24,91,.12);
+  border-color: var(--pink-mid);
+}
+
+.skill-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink-deep), var(--pink-mid));
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════
+   EDUCATION
+   ══════════════════════════════════════════ */
+#education { background: var(--card-bg); }
+
+.edu-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.edu-item {
+  background: var(--pink-pale);
+  border-left: 4px solid var(--pink-mid);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.1rem 1.5rem;
+  font-weight: 500;
+  color: var(--dark);
+  transition: background var(--transition), transform .2s;
+}
+.edu-item:hover { background: var(--pink-blush); transform: translateX(4px); }
+
+/* ══════════════════════════════════════════
+   EXPERIENCE
+   ══════════════════════════════════════════ */
+#experience { background: var(--pink-pale); }
+
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 1rem; margin-top: 2rem;
+}
+
+.exp-card {
+  background: var(--card-bg);
+  border: 1px solid var(--pink-soft);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.exp-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(194,24,91,.12); }
+
+.exp-card-icon { font-size: 1.5rem; margin-bottom: .8rem; }
+.exp-card-title { font-weight: 600; font-size: .93rem; margin-bottom: .3rem; color: var(--dark); }
+.exp-card-sub { font-size: .8rem; color: var(--gray); }
+
+/* ══════════════════════════════════════════
+   PROJECTS
+   ══════════════════════════════════════════ */
+#projects { background: var(--card-bg); }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem; margin-top: 2rem;
+}
+
+.project-card {
+  background: var(--pink-pale);
+  border: 1px solid var(--pink-soft);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  display: flex; flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative; overflow: hidden;
+}
+.project-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--pink-deep), var(--pink-mid));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .4s ease;
+}
+.project-card:hover::before { transform: scaleX(1); }
+.project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(194,24,91,.14); }
+
+.project-num { font-family: var(--ff-display); font-size: 2.4rem; font-weight: 700; color: var(--pink-soft); line-height: 1; margin-bottom: .8rem; }
+.project-title { font-weight: 700; font-size: 1rem; margin-bottom: .5rem; color: var(--dark); }
+.project-desc { font-size: .85rem; color: var(--gray); flex: 1; }
+
+.project-link {
+  display: inline-flex; align-items: center; gap: .4rem;
+  margin-top: 1.2rem; font-size: .82rem; font-weight: 600;
+  color: var(--pink-deep); text-decoration: none;
+  transition: gap var(--transition);
+}
+.project-link:hover { gap: .7rem; }
+
+/* ══════════════════════════════════════════
+   CERTIFICATES
+   ══════════════════════════════════════════ */
+#sertifikat { background: var(--pink-pale); }
+
+.sertifikat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem; margin-top: 2rem;
+}
+
+.sertifikat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--pink-soft);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex; flex-direction: column;
+}
+.sertifikat-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(194,24,91,.15); }
+
+.sertifikat-img-wrap {
+  position: relative; aspect-ratio: 4/3; overflow: hidden;
+  background: var(--pink-blush); cursor: pointer;
+}
+
+.sertifikat-img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform .4s ease;
+}
+.sertifikat-card:hover .sertifikat-img { transform: scale(1.04); }
+
+.sertifikat-img-wrap::after {
+  content: '🔍 Perbesar';
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(194,24,91,.55);
+  color: white; font-weight: 600; font-size: .85rem;
+  opacity: 0; transition: opacity .3s ease;
+}
+.sertifikat-img-wrap:hover::after { opacity: 1; }
+
+.sertifikat-body { padding: 1.2rem 1.4rem 1.5rem; flex: 1; }
+.sertifikat-title { font-weight: 700; font-size: .95rem; margin-bottom: .4rem; color: var(--dark); }
+.sertifikat-desc { font-size: .8rem; color: var(--gray); }
+
+/* Certificate badge */
+.sertifikat-badge {
+  display: inline-block;
+  background: var(--pink-blush);
+  color: var(--pink-deep);
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: .2rem .6rem;
+  border-radius: 99px;
+  margin-top: .5rem;
+}
+
+/* ══════════════════════════════════════════
+   LIGHTBOX
+   ══════════════════════════════════════════ */
+.lightbox {
+  display: none;
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(26,10,18,.88);
+  backdrop-filter: blur(8px);
+  align-items: center; justify-content: center;
+  animation: lightboxIn .25s ease;
+}
+.lightbox.active { display: flex; }
+@keyframes lightboxIn { from { opacity:0; } to { opacity:1; } }
+
+.lightbox img {
+  max-width: 90vw; max-height: 85vh;
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  object-fit: contain;
+  animation: lightboxImgIn .3s ease;
+}
+@keyframes lightboxImgIn {
+  from { transform: scale(.9); opacity:0; }
+  to   { transform: scale(1);  opacity:1; }
+}
+
+.lightbox-close {
+  position: fixed; top: 1.2rem; right: 1.5rem;
+  font-size: 2rem; color: white;
+  cursor: pointer; line-height: 1;
+  transition: color var(--transition), transform .2s;
+}
+.lightbox-close:hover { color: var(--pink-soft); transform: rotate(90deg); }
+
+/* ══════════════════════════════════════════
+   HOBI
+   ══════════════════════════════════════════ */
+#hobi { background: var(--card-bg); }
+
+.hobi-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+
+.hobi-pill {
+  background: linear-gradient(135deg, var(--pink-deep), var(--pink-mid));
+  color: white;
+  padding: .7rem 1.4rem;
+  border-radius: 99px;
+  font-weight: 600; font-size: .9rem;
+  display: flex; align-items: center; gap: .5rem;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.hobi-pill:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 6px 18px rgba(194,24,91,.4); }
+
+/* ══════════════════════════════════════════
+   CONTACT
+   ══════════════════════════════════════════ */
+#contact {
+  background: linear-gradient(135deg, var(--pink-deep) 0%, var(--pink-mid) 100%);
+  text-align: center; color: white;
+  position: relative; overflow: hidden;
+}
+
+#contact::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+#contact .section-label { color: rgba(255,255,255,.7); }
+#contact .section-title { color: white; }
+
+.contact-sub { color: rgba(255,255,255,.85); max-width: 480px; margin: 0 auto 2.5rem; }
+
+.contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+.contact-link {
+  display: inline-flex; align-items: center; gap: .6rem;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.3);
+  color: white; text-decoration: none;
+  padding: .75rem 1.6rem;
+  border-radius: 99px;
+  font-weight: 600; font-size: .9rem;
+  backdrop-filter: blur(8px);
+  transition: background var(--transition), transform var(--transition);
+}
+.contact-link:hover { background: rgba(255,255,255,.28); transform: translateY(-2px); }
+
+/* ══════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════ */
+footer {
+  background: var(--dark);
+  color: rgba(255,255,255,.4);
+  text-align: center;
+  padding: 1.5rem;
+  font-size: .82rem;
+}
+[data-theme="dark"] footer { background: #0D0508; }
+footer span { color: var(--pink-mid); }
+
+/* ══════════════════════════════════════════
+   POP-OUT TEXT EFFECTS (hover)
+   ══════════════════════════════════════════ */
+
+/* Section titles pop-out */
+.section-title {
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), letter-spacing .3s ease;
+  cursor: default;
+  display: inline-block;
+}
+.section-title:hover {
+  transform: scale(1.04) translateY(-3px);
+  letter-spacing: .04em;
+  text-shadow: 0 6px 24px rgba(194,24,91,.18);
+}
+
+/* Hero name pop-out */
+.hero-name {
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+  cursor: default;
+}
+.hero-name:hover {
+  transform: scale(1.05) translateY(-4px);
+  filter: drop-shadow(0 8px 20px rgba(194,24,91,.3));
+}
+
+/* Hero sub text pop-out */
+.hero-sub {
+  transition: transform .3s ease, color .3s ease;
+  cursor: default;
+}
+.hero-sub:hover {
+  transform: translateY(-3px) scale(1.02);
+  color: var(--pink-deep);
+}
+
+/* About text paragraphs pop-out */
+.about-text p {
+  transition: transform .3s ease, padding-left .3s ease;
+  cursor: default;
+  padding-left: 0;
+  border-left: 3px solid transparent;
+}
+.about-text p:hover {
+  transform: translateX(8px);
+  padding-left: 10px;
+  border-left-color: var(--pink-mid);
+  color: var(--dark);
+}
+
+/* Strong tags inside text — pop and glow */
+.about-text strong {
+  transition: all .25s ease;
+  display: inline-block;
+  cursor: default;
+}
+.about-text strong:hover {
+  transform: scale(1.12) translateY(-2px);
+  color: var(--pink-deep);
+  text-shadow: 0 4px 12px rgba(233,30,140,.3);
+}
+
+/* Skill pills — pop out on hover (enhanced) */
+.skill-pill:hover .skill-dot {
+  transform: scale(1.5);
+  box-shadow: 0 0 10px rgba(233,30,140,.6);
+}
+.skill-dot {
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+/* Edu items — text pop */
+.edu-item {
+  position: relative;
+  overflow: hidden;
+}
+.edu-item::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 0;
+  background: linear-gradient(90deg, rgba(233,30,140,.08), transparent);
+  transition: width .4s ease;
+}
+.edu-item:hover::after { width: 100%; }
+.edu-item:hover { color: var(--pink-deep); letter-spacing: .02em; }
+
+/* Project title pop-out */
+.project-title {
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), color .3s ease;
+  display: inline-block;
+  cursor: default;
+}
+.project-card:hover .project-title {
+  transform: scale(1.06) translateY(-2px);
+  color: var(--pink-deep);
+}
+
+/* Project number bounce */
+.project-num {
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
+}
+.project-card:hover .project-num {
+  transform: scale(1.2) rotate(-5deg);
+  opacity: .4;
+}
+
+/* Sertifikat title pop */
+.sertifikat-title {
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), color .3s ease;
+  display: inline-block;
+  cursor: default;
+}
+.sertifikat-card:hover .sertifikat-title {
+  transform: scale(1.05) translateY(-2px);
+  color: var(--pink-deep);
+}
+
+/* Hero stat numbers — bounce pop */
+.hero-stat-num {
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+  display: inline-block;
+  cursor: default;
+}
+.hero-stat:hover .hero-stat-num {
+  transform: scale(1.25) translateY(-4px);
+  filter: drop-shadow(0 4px 8px rgba(194,24,91,.4));
+}
+.hero-stat-label {
+  transition: transform .3s ease, color .3s ease;
+}
+.hero-stat:hover .hero-stat-label {
+  transform: translateY(2px);
+  color: var(--pink-deep);
+}
+
+/* Nav links magnetic hover */
+.nav-links a {
+  position: relative;
+  display: inline-block;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 50%; right: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--pink-deep), var(--pink-mid));
+  border-radius: 99px;
+  transition: left .3s ease, right .3s ease;
+}
+.nav-links a:hover::after { left: 0; right: 0; }
+
+/* Hobi pill emoji bounce */
+.hobi-pill:hover { animation: hobiBounce .5s cubic-bezier(.34,1.56,.64,1); }
+@keyframes hobiBounce {
+  0%   { transform: translateY(0) scale(1); }
+  40%  { transform: translateY(-10px) scale(1.08); }
+  70%  { transform: translateY(-4px) scale(1.03); }
+  100% { transform: translateY(-2px) scale(1.04); }
+}
+
+/* Contact link shimmer on hover */
+.contact-link {
+  position: relative;
+  overflow: hidden;
+}
+.contact-link::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -80%;
+  width: 60%; height: 200%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.25), transparent);
+  transform: skewX(-20deg);
+  transition: left .5s ease;
+}
+.contact-link:hover::before { left: 120%; }
+
+/* ══════════════════════════════════════════
+   FALLING PETALS ANIMATION
+   ══════════════════════════════════════════ */
+.petal {
+  position: fixed;
+  top: -40px;
+  pointer-events: none;
+  z-index: 2;
+  font-size: 1.1rem;
+  animation: petalFall linear infinite;
+  opacity: 0;
+}
+@keyframes petalFall {
+  0%   { opacity: 0; transform: translateY(0) rotate(0deg) scale(.8); }
+  8%   { opacity: .7; }
+  90%  { opacity: .5; }
+  100% { opacity: 0; transform: translateY(105vh) rotate(540deg) scale(1.2); }
+}
+
+/* ══════════════════════════════════════════
+   SHIMMER TEXT (section titles)
+   ══════════════════════════════════════════ */
+.shimmer-text {
+  background: linear-gradient(
+    110deg,
+    var(--pink-deep) 20%,
+    var(--pink-mid) 40%,
+    #FF6EB4 50%,
+    var(--pink-mid) 60%,
+    var(--pink-deep) 80%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmerMove 4s linear infinite;
+}
+@keyframes shimmerMove {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* ══════════════════════════════════════════
+   GLITTER BURST on click
+   ══════════════════════════════════════════ */
+.glitter {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  font-size: .85rem;
+  animation: glitterBurst .9s ease forwards;
+}
+@keyframes glitterBurst {
+  0%   { opacity: 1; transform: translate(0,0) scale(1.2) rotate(0deg); }
+  100% { opacity: 0; transform: translate(var(--gx), var(--gy)) scale(0) rotate(360deg); }
+}
+
+/* ══════════════════════════════════════════
+   RIPPLE PULSE on section labels
+   ══════════════════════════════════════════ */
+.section-label {
+  position: relative;
+  transition: transform .3s ease;
+}
+.section-label:hover {
+  transform: scale(1.06);
+}
+.section-label::after {
+  content: '';
+  position: absolute;
+  inset: -4px -8px;
+  border-radius: 99px;
+  border: 1.5px solid var(--pink-mid);
+  opacity: 0;
+  transform: scale(.8);
+  transition: opacity .3s ease, transform .3s ease;
+}
+.section-label:hover::after {
+  opacity: .5;
+  transform: scale(1.1);
+}
+
+/* ══════════════════════════════════════════
+   CARD TILT GLOW (exp + project)
+   ══════════════════════════════════════════ */
+.exp-card, .project-card {
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+/* ══════════════════════════════════════════
+   PINK PULSE RING (hero photo)
+   ══════════════════════════════════════════ */
+.hero-photo-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 2px solid var(--pink-mid);
+  opacity: 0;
+  animation: ringPulse 3s ease-in-out infinite;
+}
+.hero-photo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -24px;
+  border-radius: 50%;
+  border: 1.5px solid var(--pink-soft);
+  opacity: 0;
+  animation: ringPulse 3s ease-in-out infinite .8s;
+}
+@keyframes ringPulse {
+  0%,100% { opacity: 0; transform: scale(.9); }
+  50%      { opacity: .5; transform: scale(1.05); }
+}
+
+/* ══════════════════════════════════════════
+   HERO TAG glow pulse
+   ══════════════════════════════════════════ */
+.hero-tag {
+  animation: tagSlideIn .8s ease forwards, tagGlow 3s ease-in-out infinite 1s;
+}
+@keyframes tagGlow {
+  0%,100% { box-shadow: 0 0 0 0 rgba(233,30,140,0); }
+  50%      { box-shadow: 0 0 16px 4px rgba(233,30,140,.2); }
+}
+
+/* ══════════════════════════════════════════
+   ABOUT CARD name hover
+   ══════════════════════════════════════════ */
+.about-card-name {
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), color .3s ease;
+  display: inline-block;
+  cursor: default;
+}
+.about-card:hover .about-card-name {
+  transform: scale(1.08) translateY(-3px);
+  color: var(--pink-deep);
+}
+
+/* Tags pop */
+.tag {
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  display: inline-block;
+  cursor: default;
+}
+.tag:hover {
+  transform: scale(1.12) translateY(-3px);
+  box-shadow: 0 6px 16px rgba(194,24,91,.2);
+}
+
+/* Sertifikat badge pop */
+.sertifikat-badge {
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  display: inline-block;
+  cursor: default;
+}
+.sertifikat-badge:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 4px 12px rgba(194,24,91,.25);
+}
+
+/* ══════════════════════════════════════════
+   FOOTER heart beat
+   ══════════════════════════════════════════ */
+footer span {
+  display: inline-block;
+  animation: heartBeat 5.2s ease-in-out infinite;
+}
+@keyframes heartBeat {
+  0%,100% { transform: scale(1); }
+  14%      { transform: scale(1.3); }
+  28%      { transform: scale(1); }
+  42%      { transform: scale(1.2); }
+  70%      { transform: scale(1); }
+}
+
+/* ══════════════════════════════════════════
+   FADE-UP ANIMATIONS
+   ══════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up         { animation: fadeUp .7s ease forwards; }
+.delay-1         { animation-delay: .15s; opacity: 0; }
+.delay-2         { animation-delay: .30s; opacity: 0; }
+.delay-3         { animation-delay: .45s; opacity: 0; }
+.delay-4         { animation-delay: .60s; opacity: 0; }
+.delay-5         { animation-delay: .75s; opacity: 0; }
+
+/* ══════════════════════════════════════════
+   LANGUAGE HIDDEN ELEMENTS
+   ══════════════════════════════════════════ */
+[data-lang="id"] .en { display: none; }
+[data-lang="en"] .id { display: none; }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════ */
+@media (max-width: 700px) {
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  nav { padding: .75rem 1.2rem; }
+  .nav-links { gap: 1rem; font-size: .8rem; }
+  .nav-logo { font-size: 1rem; }
+  section { padding: 4rem 1.2rem; }
+  .hero-photo, .hero-photo-wrap { width: 120px; height: 120px; }
+  .hero-stats { gap: 1.5rem; }
+  .fab-toolbar { bottom: 1rem; right: 1rem; }
+  .sticker { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+  </style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
+
+<!-- Floating Stickers -->
+<div class="sticker">🌸</div>
+<div class="sticker">✨</div>
+<div class="sticker">💻</div>
+<div class="sticker">🎨</div>
+<div class="sticker">🌷</div>
+<div class="sticker">⭐</div>
+
+<!-- Floating Toolbar -->
+<div class="fab-toolbar">
+  <button class="fab-btn" id="darkToggle" onclick="toggleDark()" title="Dark Mode">
+    🌙
+    <span class="fab-tooltip">Dark Mode</span>
+  </button>
+  <button class="fab-btn" id="langToggle" onclick="toggleLang()">
+    🌐
+    <span class="fab-tooltip" id="langTooltip">Switch to English</span>
+  </button>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#home" class="nav-brand">
+    <img class="nav-photo" src="s4.jpg" alt="NFA"
+      onerror="this.style.display='none'; document.getElementById('nav-placeholder').style.display='flex';" />
+    <span id="nav-placeholder" class="nav-photo-placeholder" style="display:none;"><a href="s4.jpg"></a></span>
+    <span class="nav-logo">Nurul Fadila Ananda</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home"><span class="id">Beranda</span><span class="en">Home</span></a></li>
+    <li><a href="#about"><span class="id">Tentang</span><span class="en">About</span></a></li>
+    <li><a href="#projects"><span class="id">Proyek</span><span class="en">Projects</span></a></li>
+    <li><a href="#sertifikat"><span class="id">Sertifikat</span><span class="en">Certificates</span></a></li>
+    <li><a href="#contact"><span class="id">Kontak</span><span class="en">Contact</span></a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="home">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-blob hero-blob-3"></div>
+
+  <div class="hero-photo-wrap fade-up">
+    <img class="hero-photo" src="s4.jpg" alt="Nurul Fadila Ananda"
+      onerror="this.style.display='none'; document.getElementById('hero-placeholder').style.display='flex';" />
+    <div id="hero-placeholder" class="hero-avatar-placeholder" style="display:none;">NFA</div>
+    <div class="hero-badge"></div>
+  </div>
+
+  <div class="hero-tag fade-up delay-1">
+    <span class="id">✦ Selamat datang di portofolioku</span>
+    <span class="en">✦ Welcome to my portfolio</span>
+  </div>
+
+  <h1 class="hero-name fade-up delay-2">
+    <span class="id">Halo, saya<br /></span>
+    <span class="en">Hi, I'm<br /></span>
+    <span id="typed-name"></span><span class="typing-cursor"></span>
+  </h1>
+
+  <p class="hero-sub fade-up delay-3">
+    <span class="id">Mahasiswi Informatika yang antusias di bidang Web Development dan desain UI/UX — membangun web yang fungsional sekaligus memanjakan mata.</span>
+    <span class="en">An Informatics student passionate about Web Development and UI/UX design — building websites that are both functional and visually delightful.</span>
+  </p>
+
+  <div class="hero-btns fade-up delay-4">
+    <a href="#projects" class="btn btn-primary">
+      <span class="id">Lihat Karya Saya →</span>
+      <span class="en">View My Work →</span>
+    </a>
+    <a href="#about" class="btn btn-outline">
+      <span class="id">Tentang Saya</span>
+      <span class="en">About Me</span>
+    </a>
+  </div>
+
+  <div class="hero-stats fade-up delay-5">
+    <div class="hero-stat">
+      <div class="hero-stat-num">4+</div>
+      <div class="hero-stat-label"><span class="id">Proyek</span><span class="en">Projects</span></div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label"><span class="id">Sertifikat</span><span class="en">Certificates</span></div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">2</div>
+      <div class="hero-stat-label"><span class="id">Semester</span><span class="en">Semesters</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section id="about">
+  <div class="container">
+    <div class="section-label"><span class="id">1</span><span class="en">1</span></div>
+    <br>
+    <h2 class="section-title">
+      <span class="id">Sedikit tentang diri saya</span>
+      <span class="en">A little about myself</span>
+    </h2>
+
+    <div class="about-grid">
+      <div>
+        <div class="about-card">
+          <img class="about-photo" src="s4.jpg" alt="Nurul Fadila Ananda"
+            onerror="this.style.display='none'; document.getElementById('about-placeholder').style.display='flex';" />
+          <div id="about-placeholder" class="about-photo-placeholder" style="display:none;">NFA</div>
+          <div class="about-card-name">Nurul Fadila Ananda</div>
+          <div class="about-card-role">
+            <span class="id">Mahasiswi Informatika · Semester 2</span>
+            <span class="en">Informatics Student · Semester 2</span>
+          </div>
+          <div class="about-tags">
+            <span class="tag">💻 Web Developer</span>
+            <span class="tag">🎨 UI/UX Enthusiast</span>
+            <span class="tag">✏️ <span class="id">Desainer</span><span class="en">Designer</span></span>
+          </div>
+          <div class="about-contact">
+            <a href="https://wa.me/6283169627184" target="_blank">📱 0831-6962-7184</a>
+            <a href="mailto:nurulfadilaananda90@gmail.com">📧 nurulfadilaananda90@gmail.com</a>
+            <a href="https://instagram.com/glumepoetry_" target="_blank">📸 @glumepoetry_</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <p class="id">Saya adalah mahasiswi aktif semester 2 di program studi Informatika. Memiliki minat yang besar dalam pengembangan teknologi digital, khususnya di bidang pemrograman web (<strong>Web Development</strong>) dan keindahan desain antarmuka pengguna (<strong>UI/UX</strong>).</p>
+        <p class="en">I am an active second-semester student in the Informatics program. I have a strong interest in digital technology development, particularly in <strong>Web Development</strong> and beautiful user interface design (<strong>UI/UX</strong>).</p>
+        <p class="id">Saya terus berusaha mengasah logika coding serta meningkatkan keterampilan desain untuk membangun aplikasi web yang tidak hanya fungsional, tetapi juga memanjakan mata pengguna.</p>
+        <p class="en">I continuously sharpen my coding logic and improve my design skills to build web applications that are not only functional, but also visually pleasing for users.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SKILLS ═══════════ -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label"><span class="id">2</span><span class="en">2</span></div>
+    <br>
+    <h2 class="section-title">Skill &amp; <span class="id">Minat</span><span class="en">Interests</span></h2>
+    <div class="skills-grid">
+      <div class="skill-pill"><span class="skill-dot"></span>HTML</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Python</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Java</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Figma</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Canva</div>
+      <div class="skill-pill"><span class="skill-dot"></span>Microsoft Office</div>
+      <div class="skill-pill"><span class="skill-dot"></span><span class="id">Kreativitas</span><span class="en">Creativity</span></div>
+      <div class="skill-pill"><span class="skill-dot"></span><span class="id">Komunikasi</span><span class="en">Communication</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EDUCATION ═══════════ -->
+<section id="education">
+  <div class="container">
+    <div class="section-label"><span class="id">3</span><span class="en">3</span></div>
+    <br>
+    <h2 class="section-title"><span class="id">Pendidikan</span><span class="en">Education History</span></h2>
+    <div class="edu-list">
+      <div class="edu-item">🏫 SD Yayasan Perguruan Islamiyah</div>
+      <div class="edu-item">🏫 SMP Yayasan Perguruan Islamiyah</div>
+      <div class="edu-item">🏫 SMA Al Washliyah Tembung</div>
+      <div class="edu-item">🎓 <span class="id">Program Studi Informatika (Aktif · Semester 2)</span><span class="en">Informatics Study Program (Active · Semester 2)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EXPERIENCE ═══════════ -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label"><span class="id">4</span><span class="en">4</span></div>
+    <br>
+    <h2 class="section-title"><span class="id">Pengalaman &amp; Organisasi</span><span class="en">Experience &amp; Organizations</span></h2>
+    <div class="exp-grid">
+      <div class="exp-card">
+        <div class="exp-card-icon">🏆</div>
+        <div class="exp-card-title"><span class="id">Lomba Cerdas Cermat</span><span class="en">Academic Quiz Competition</span></div>
+        <div class="exp-card-sub">MAS Alwasliyah</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-card-icon">✍️</div>
+        <div class="exp-card-title"><span class="id">Lomba Kaligrafi</span><span class="en">Calligraphy Competition</span></div>
+        <div class="exp-card-sub">MAS Alwasliyah</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-card-icon">🎤</div>
+        <div class="exp-card-title"><span class="id">Lomba Nyanyi Pop Songs</span><span class="en">Pop Song Singing Competition</span></div>
+        <div class="exp-card-sub">MAS Alwasliyah</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-card-icon">🩺</div>
+        <div class="exp-card-title"><span class="id">Organisasi PMR</span><span class="en">Red Cross Youth Organization</span></div>
+        <div class="exp-card-sub">Palang Merah Indonesia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROJECTS ═══════════ -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label"><span class="id">5</span><span class="en">5</span></div>
+    <br>
+    <h2 class="section-title shimmer-text">Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-num">01</div>
+        <div class="project-title"><span class="id">Project WEB Biodata OrangUtan</span><span class="en">Orangutan Biodata Website</span></div>
+        <div class="project-desc">
+          <span class="id">Website biodata orangutan di Orangutan Haven (OUH), dibangun bersama kelompok sebagai proyek web.</span>
+          <span class="en">Orangutan biodata website for Orangutan Haven (OUH), built as a group web project.</span>
+        </div>
+        <a href="https://orangutanhaven.byethost7.com/index" target="_blank" class="project-link"><span class="id">Kunjungi →</span><span class="en">Visit →</span></a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">02</div>
+        <div class="project-title"><span class="id">Project PBO Profil Data OrangUtan</span><span class="en">OOP Orangutan Profile App</span></div>
+        <div class="project-desc">
+          <span class="id">Aplikasi berbasis Pemrograman Berorientasi Objek untuk mengelola profil dan data orangutan.</span>
+          <span class="en">Object-Oriented Programming application to manage orangutan profiles and data.</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">03</div>
+        <div class="project-title">Figma Design — SiagaID</div>
+        <div class="project-desc">
+          <span class="id">Desain UI/UX aplikasi SiagaID menggunakan Figma, dikerjakan bersama kelompok 5.</span>
+          <span class="en">UI/UX design of the SiagaID app using Figma, created with group 5.</span>
+        </div>
+        <a href="https://www.figma.com/design/b8J3FBAc9CPiyPvrqVFwRS/SiagaID---Project-Group-5?node-id=0-1&t=w8OGPuTcYhxexdt5-1" target="_blank" class="project-link"><span class="id">Lihat di Figma →</span><span class="en">View on Figma →</span></a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">04</div>
+        <div class="project-title"><span class="id">SDG's — Analisis Dampak Banjir</span><span class="en">SDG's — Flood Impact Analysis</span></div>
+        <div class="project-desc">
+          <span class="id">Analisis dampak banjir terhadap aktivitas rumah tangga dan kebersihan lingkungan di kawasan Sungai Sunggal.</span>
+          <span class="en">Analysis of flood impacts on household activities and environmental cleanliness in the Sunggal River area.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CERTIFICATES ═══════════ -->
+<section id="sertifikat">
+  <div class="container">
+    <div class="section-label"><span class="id">6</span><span class="en">6</span></div>
+    <br>
+    <h2 class="section-title shimmer-text"><span class="id">Sertifikat</span><span class="en">Certificates</span></h2>
+    <div class="sertifikat-grid">
+
+      <div class="sertifikat-card">
+        <div class="sertifikat-img-wrap" onclick="bukaLightbox(this)">
+          <img class="sertifikat-img" src="s1.jpg" alt="Introduction to Python"
+            onerror="this.parentElement.style.background='var(--pink-blush)'; this.style.display='none';" />
+        </div>
+        <div class="sertifikat-body">
+          <div class="sertifikat-title">Introduction to Python</div>
+          <div class="sertifikat-desc">
+            <span class="id">Menyelesaikan kursus Python dengan pemahaman teoritis dan praktis — SoloLearn</span>
+            <span class="en">Completed Python course with theoretical and practical understanding — SoloLearn</span>
+          </div>
+          <span class="sertifikat-badge">SoloLearn · 2024</span>
+        </div>
+      </div>
+
+      <div class="sertifikat-card">
+        <div class="sertifikat-img-wrap" onclick="bukaLightbox(this)">
+          <img class="sertifikat-img" src="s2.jpg" alt="SDG Academy"
+            onerror="this.parentElement.style.background='var(--pink-blush)'; this.style.display='none';" />
+        </div>
+        <div class="sertifikat-body">
+          <div class="sertifikat-title">
+            <span class="id">SDM &amp; Ketenagakerjaan</span>
+            <span class="en">HR &amp; Employment (SDG Academy)</span>
+          </div>
+          <div class="sertifikat-desc">
+            <span class="id">Program Belajar Daring SDG Academy Indonesia — Sumber Daya Manusia dan Ketenagakerjaan</span>
+            <span class="en">SDG Academy Indonesia Online Learning Program — Human Resources and Employment</span>
+          </div>
+          <span class="sertifikat-badge">SDG Academy · 2026</span>
+        </div>
+      </div>
+
+      <div class="sertifikat-card">
+        <div class="sertifikat-img-wrap" onclick="bukaLightbox(this)">
+          <img class="sertifikat-img" src="s3.png" alt="Asset English Course"
+            onerror="this.parentElement.style.background='var(--pink-blush)'; this.style.display='none';" />
+        </div>
+        <div class="sertifikat-body">
+          <div class="sertifikat-title">
+            <span class="id">Kursus Bahasa Inggris</span>
+            <span class="en">English Language Course</span>
+          </div>
+          <div class="sertifikat-desc">
+            <span class="id">Conversation One — Asset English Course, Batang Kuis. Lulus ujian lokal 10 Feb 2025.</span>
+            <span class="en">Conversation One — Asset English Course, Batang Kuis. Passed local exam on Feb 10, 2025.</span>
+          </div>
+          <span class="sertifikat-badge">Asset English · 2025</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="tutupLightbox()">
+  <span class="lightbox-close" onclick="tutupLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt="Preview" />
+</div>
+
+<!-- ═══════════ HOBI ═══════════ -->
+<section id="hobi">
+  <div class="container">
+    <div class="section-label"><span class="id">Nurul</span><span class="en">Nurul</span></div>
+    <h2 class="section-title shimmer-text"><span class="id">Hobi</span><span class="en">Hobbies</span></h2>
+    <div class="hobi-row">
+      <div class="hobi-pill">🎨 <span class="id">Menggambar</span><span class="en">Drawing</span></div>
+      <div class="hobi-pill">📖 <span class="id">Membaca Novel</span><span class="en">Reading Novels</span></div>
+      <div class="hobi-pill">✈️ <span class="id">Traveling</span><span class="en">Traveling</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label"><span class="id">Kontak Saya</span><span class="en">Contact</span></div>
+    <br>
+    <h2 class="section-title">
+      <span class="id">&amp;Mari saling mengenal</span>
+      <span class="en">Let's connect</span>
+    </h2>
+    <p class="contact-sub">
+      <span class="id">Saya terbuka untuk kolaborasi, diskusi, atau sekadar ngobrol. Jangan ragu untuk menghubungi saya!</span>
+      <span class="en">I'm open to collaborations, discussions, or just a friendly chat. Don't hesitate to reach out!</span>
+    </p>
+    <div class="contact-links">
+      <a href="mailto:nurulfadilaananda90@gmail.com" class="contact-link">📧 <span class="id">Email Saya</span><span class="en">Email Me</span></a>
+      <a href="https://wa.me/6283169627184" target="_blank" class="contact-link">💬 WhatsApp</a>
+      <a href="https://instagram.com/glumepoetry_" target="_blank" class="contact-link">📸 Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="id">Dibuat dengan <span>♥</span> oleh Nurul Fadila Ananda · 2026</span>
+  <span class="en">Made with <span>♥</span> by Nurul Fadila Ananda · 2026</span>
+</footer>
+
+<!-- Falling Petals Container -->
+<div id="petals-container" aria-hidden="true"></div>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script>
+
+/* ── Falling Petals ── */
+const petalEmojis = ['🌸','🌷','💮','🌺','✿'];
+const petalsContainer = document.getElementById('petals-container');
+
+function createPetal() {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+  const leftPct = Math.random() * 100;
+  const duration = 6 + Math.random() * 8;
+  const size = 0.7 + Math.random() * 0.8;
+  p.style.left = leftPct + 'vw';
+  p.style.fontSize = size + 'rem';
+  p.style.animationDuration = duration + 's';
+  p.style.animationDelay = (Math.random() * 4) + 's';
+  petalsContainer.appendChild(p);
+  setTimeout(() => p.remove(), (duration + 4) * 1000);
+}
+
+// Spawn petals periodically
+setInterval(createPetal, 1800);
+// Initial burst
+for (let i = 0; i < 6; i++) setTimeout(createPetal, i * 300);
+
+/* ── Glitter Burst on click ── */
+const glitterEmojis = ['✨','💖','🌸','⭐','💗','✦','🩷'];
+document.addEventListener('click', (e) => {
+  const count = 8 + Math.floor(Math.random() * 6);
+  for (let i = 0; i < count; i++) {
+    const g = document.createElement('div');
+    g.className = 'glitter';
+    g.textContent = glitterEmojis[Math.floor(Math.random() * glitterEmojis.length)];
+    g.style.left = e.clientX + 'px';
+    g.style.top  = e.clientY + 'px';
+    const angle = (Math.PI * 2 * i) / count;
+    const dist  = 50 + Math.random() * 60;
+    g.style.setProperty('--gx', Math.cos(angle) * dist + 'px');
+    g.style.setProperty('--gy', Math.sin(angle) * dist + 'px');
+    g.style.animationDelay = (Math.random() * .15) + 's';
+    document.body.appendChild(g);
+    setTimeout(() => g.remove(), 950);
+  }
+});
+
+/* ── Scroll Progress Bar ── */
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = (window.scrollY / total * 100) + '%';
+});
+
+/* ── Intersection Observer for cards ── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+      e.target.style.transition = 'opacity .6s ease, transform .6s ease';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll(
+  '.skill-pill, .edu-item, .exp-card, .project-card, .hobi-pill, .sertifikat-card'
+).forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transitionDelay = (i * 0.05) + 's';
+  io.observe(el);
+});
+
+/* ── Typing Animation ── */
+const fullName = 'Nurul Fadila Ananda';
+const target = document.getElementById('typed-name');
+let idx = 0;
+
+function typeChar() {
+  if (idx <= fullName.length) {
+    target.textContent = fullName.slice(0, idx);
+    idx++;
+    setTimeout(typeChar, 80);
+  }
+}
+setTimeout(typeChar, 900);
+
+/* ── Lightbox ── */
+function bukaLightbox(wrap) {
+  const img = wrap.querySelector('.sertifikat-img');
+  if (!img) return;
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function tutupLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') tutupLightbox(); });
+
+/* ── Dark Mode ── */
+function toggleDark() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('darkToggle').textContent = isDark ? '🌙' : '☀️';
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
+
+// Restore saved theme
+(function() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('darkToggle').textContent = '☀️';
+  }
+})();
+
+/* ── Language Toggle ── */
+function toggleLang() {
+  const html = document.documentElement;
+  const isID = html.getAttribute('data-lang') === 'id';
+  const newLang = isID ? 'en' : 'id';
+  html.setAttribute('data-lang', newLang);
+  html.setAttribute('lang', newLang);
+  document.getElementById('langTooltip').textContent = isID ? 'Ganti ke Bahasa Indonesia' : 'Switch to English';
+  localStorage.setItem('lang', newLang);
+}
+
+// Restore saved language
+(function() {
+  const saved = localStorage.getItem('lang');
+  if (saved) {
+    document.documentElement.setAttribute('data-lang', saved);
+    document.documentElement.setAttribute('lang', saved);
+    if (saved === 'en') document.getElementById('langTooltip').textContent = 'Ganti ke Bahasa Indonesia';
+  }
+})();
+
+/* ── Cursor Sparkle ── */
+const sparkleEmojis = ['✨','🌸','⭐','💫','🌷','✦'];
+let lastSparkle = 0;
+
+document.addEventListener('mousemove', (e) => {
+  const now = Date.now();
+  if (now - lastSparkle < 120) return;
+  lastSparkle = now;
+
+  const s = document.createElement('div');
+  s.className = 'sparkle';
+  s.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+  s.style.left = e.clientX + 'px';
+  s.style.top  = e.clientY + 'px';
+  const dx = (Math.random() - .5) * 60 + 'px';
+  const dy = (Math.random() - .5) * 60 + 'px';
+  s.style.setProperty('--dx', dx);
+  s.style.setProperty('--dy', dy);
+  document.body.appendChild(s);
+  setTimeout(() => s.remove(), 700);
+});
+
+</script>
+</body>
+</html>
